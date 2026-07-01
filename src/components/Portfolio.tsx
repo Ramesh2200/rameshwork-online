@@ -209,9 +209,11 @@ function Hero() {
           <div className="mt-4 h-8 font-mono text-lg text-muted-foreground sm:text-xl">
             <TypeAnimation
               sequence={[
-                "Full Stack Developer", 1500,
+                "Spring Boot Developer", 1500,
                 "React Developer", 1500,
                 "Java Developer", 1500,
+                "Python Developer", 1500,
+                "Flask Developer", 1500,
                 "Software Engineer", 1500,
                 "Problem Solver", 1500,
               ]}
@@ -272,12 +274,18 @@ function Hero() {
                 className="h-full w-full object-cover"
               />
             </div>
-            {/* Orbiting badge */}
+            {/* Orbiting badges */}
             <div className="absolute -right-2 top-6 rounded-full glass px-3 py-1 text-xs font-mono glow-cyan">
-              <span className="text-secondary">&lt;/&gt;</span> code.dream.build
+              <span className="text-secondary">⚡</span> Spring Boot
             </div>
             <div className="absolute -bottom-2 left-4 rounded-full glass px-3 py-1 text-xs font-mono">
-              <Sparkles className="mr-1 inline h-3 w-3 text-secondary" /> full-stack.tsx
+              <span className="text-secondary">🐍</span> Python
+            </div>
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full glass px-3 py-1 text-xs font-mono">
+              <span className="text-secondary">☕</span> Java
+            </div>
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full glass px-3 py-1 text-xs font-mono">
+              <span className="text-secondary ut-secondary">🧪</span> Flask
             </div>
           </div>
         </motion.div>
