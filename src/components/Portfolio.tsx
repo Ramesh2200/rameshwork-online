@@ -209,9 +209,11 @@ function Hero() {
           <div className="mt-4 h-8 font-mono text-lg text-muted-foreground sm:text-xl">
             <TypeAnimation
               sequence={[
-                "Full Stack Developer", 1500,
+                "Spring Boot Developer", 1500,
                 "React Developer", 1500,
                 "Java Developer", 1500,
+                "Python Developer", 1500,
+                "Flask Developer", 1500,
                 "Software Engineer", 1500,
                 "Problem Solver", 1500,
               ]}
