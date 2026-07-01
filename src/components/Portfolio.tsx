@@ -736,14 +736,26 @@ function Contact() {
 
           <Reveal delay={0.1}>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+                const form = e.target as HTMLFormElement;
                 setSending(true);
-                setTimeout(() => {
-                  setSending(false);
+                try {
+                  const emailjs = (await import("@emailjs/browser")).default;
+                  await emailjs.sendForm(
+                    "service_q9xlcre",
+                    "template_ixrbh8r",
+                    form,
+                    "aGw6ujle7HSAwi-2G"
+                  );
                   toast.success("Message sent! I'll get back to you soon.");
-                  (e.target as HTMLFormElement).reset();
-                }, 900);
+                  form.reset();
+                } catch (err) {
+                  console.error(err);
+                  toast.error("Failed to send. Please try again.");
+                } finally {
+                  setSending(false);
+                }
               }}
               className="gradient-border p-6"
             >
@@ -751,20 +763,20 @@ function Contact() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1 block text-xs text-muted-foreground">Name</label>
-                  <Input required placeholder="Your name" className="bg-muted/40" />
+                  <Input name="from_name" required placeholder="Your name" className="bg-muted/40" />
                 </div>
                 <div>
                   <label className="mb-1 block text-xs text-muted-foreground">Email</label>
-                  <Input required type="email" placeholder="you@example.com" className="bg-muted/40" />
+                  <Input name="reply_to" required type="email" placeholder="you@example.com" className="bg-muted/40" />
                 </div>
               </div>
               <div className="mt-4">
                 <label className="mb-1 block text-xs text-muted-foreground">Subject</label>
-                <Input required placeholder="What's this about?" className="bg-muted/40" />
+                <Input name="subject" required placeholder="What's this about?" className="bg-muted/40" />
               </div>
               <div className="mt-4">
                 <label className="mb-1 block text-xs text-muted-foreground">Message</label>
-                <Textarea required rows={6} placeholder="Tell me about your project…" className="bg-muted/40" />
+                <Textarea name="message" required rows={6} placeholder="Tell me about your project…" className="bg-muted/40" />
               </div>
               <Button
                 type="submit"
