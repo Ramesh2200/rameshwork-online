@@ -213,7 +213,6 @@ function Hero() {
                 "React Developer", 1500,
                 "Java Developer", 1500,
                 "Python Developer", 1500,
-                "Flask Developer", 1500,
                 "Software Engineer", 1500,
                 "Problem Solver", 1500,
               ]}
@@ -283,9 +282,6 @@ function Hero() {
             </div>
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full glass px-3 py-1 text-xs font-mono">
               <span className="text-secondary">☕</span> Java
-            </div>
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full glass px-3 py-1 text-xs font-mono">
-              <span className="text-secondary ut-secondary">🧪</span> Flask
             </div>
           </div>
         </motion.div>
@@ -493,7 +489,7 @@ function Experience() {
 
 /* ---------------- SKILLS ---------------- */
 function Skills() {
-  const highlightSkills = new Set(["Spring Boot", "React.js", "Python", "Java", "Django", "Flask"]);
+  const highlightSkills = new Set(["Spring Boot", "React.js", "Python", "Java", "Django"]);
   const groups: { title: string; icon: any; items: { name: string; level: number }[] }[] = [
     { title: "Languages", icon: Code2, items: [
       { name: "Java", level: 88 }, { name: "Python", level: 78 }, { name: "JavaScript", level: 90 }, { name: "SQL", level: 82 },
@@ -502,7 +498,7 @@ function Skills() {
       { name: "React.js", level: 92 }, { name: "HTML5", level: 95 }, { name: "CSS3", level: 90 }, { name: "Bootstrap", level: 85 },
     ]},
     { title: "Backend", icon: Server, items: [
-      { name: "Spring Boot", level: 82 }, { name: "Node.js", level: 85 }, { name: "Express.js", level: 82 }, { name: "Java", level: 88 }, { name: "Django", level: 75 }, { name: "Flask", level: 72 },
+      { name: "Spring Boot", level: 82 }, { name: "Node.js", level: 85 }, { name: "Express.js", level: 82 }, { name: "Java", level: 88 }, { name: "Django", level: 75 },
     ]},
     { title: "Databases", icon: Database, items: [
       { name: "MySQL", level: 86 }, { name: "MongoDB", level: 80 },
