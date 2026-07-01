@@ -26,7 +26,8 @@ import {
   Send,
   ChevronDown,
 } from "lucide-react";
-import profilePhoto from "@/assets/ramesh-profile.jpg";
+import profilePhotoAsset from "@/assets/ramesh-hero.jpg.asset.json";
+const profilePhoto = profilePhotoAsset.url;
 import projectCivic from "@/assets/project-civic.jpg";
 import projectRetino from "@/assets/project-retino.jpg";
 import { Button } from "@/components/ui/button";
