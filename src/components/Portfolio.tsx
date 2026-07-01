@@ -744,7 +744,7 @@ function Contact() {
                   const emailjs = (await import("@emailjs/browser")).default;
                   await emailjs.sendForm(
                     "service_q9xlcre",
-                    "template_ixrbh8r",
+                    "template_7pt68gf",
                     form,
                     "aGw6ujle7HSAwi-2G"
                   );
