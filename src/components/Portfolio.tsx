@@ -523,24 +523,27 @@ function Skills() {
                   <h3 className="font-display text-lg font-semibold">{g.title}</h3>
                 </div>
                 <div className="space-y-3">
-                  {g.items.map((s) => (
-                    <div key={s.name}>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-muted-foreground">{s.name}</span>
-                        <span className="font-mono text-secondary">{s.level}%</span>
+                  {g.items.map((s) => {
+                    const isHighlight = highlightSkills.has(s.name);
+                    return (
+                      <div key={s.name}>
+                        <div className="flex justify-between text-xs">
+                          <span className={isHighlight ? "font-medium text-secondary" : "text-muted-foreground"}>{s.name}</span>
+                          <span className="font-mono text-secondary">{s.level}%</span>
+                        </div>
+                        <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${s.level}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            className={`h-full rounded-full ${isHighlight ? "animate-skill-glow" : ""}`}
+                            style={{ background: "var(--gradient-primary)" }}
+                          />
+                        </div>
                       </div>
-                      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${s.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className="h-full rounded-full"
-                          style={{ background: "var(--gradient-primary)" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </Reveal>
