@@ -485,6 +485,7 @@ function Experience() {
 
 /* ---------------- SKILLS ---------------- */
 function Skills() {
+  const highlightSkills = new Set(["Spring Boot", "React.js", "Python", "Java", "Django", "Flask"]);
   const groups: { title: string; icon: any; items: { name: string; level: number }[] }[] = [
     { title: "Languages", icon: Code2, items: [
       { name: "Java", level: 88 }, { name: "Python", level: 78 }, { name: "JavaScript", level: 90 }, { name: "SQL", level: 82 },
@@ -493,7 +494,7 @@ function Skills() {
       { name: "React.js", level: 92 }, { name: "HTML5", level: 95 }, { name: "CSS3", level: 90 }, { name: "Bootstrap", level: 85 },
     ]},
     { title: "Backend", icon: Server, items: [
-      { name: "Spring Boot", level: 82 }, { name: "Node.js", level: 85 }, { name: "Express.js", level: 82 }, { name: "Java", level: 88 },
+      { name: "Spring Boot", level: 82 }, { name: "Node.js", level: 85 }, { name: "Express.js", level: 82 }, { name: "Java", level: 88 }, { name: "Django", level: 75 }, { name: "Flask", level: 72 },
     ]},
     { title: "Databases", icon: Database, items: [
       { name: "MySQL", level: 86 }, { name: "MongoDB", level: 80 },
@@ -522,24 +523,27 @@ function Skills() {
                   <h3 className="font-display text-lg font-semibold">{g.title}</h3>
                 </div>
                 <div className="space-y-3">
-                  {g.items.map((s) => (
-                    <div key={s.name}>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-muted-foreground">{s.name}</span>
-                        <span className="font-mono text-secondary">{s.level}%</span>
+                  {g.items.map((s) => {
+                    const isHighlight = highlightSkills.has(s.name);
+                    return (
+                      <div key={s.name}>
+                        <div className="flex justify-between text-xs">
+                          <span className={isHighlight ? "font-medium text-secondary" : "text-muted-foreground"}>{s.name}</span>
+                          <span className="font-mono text-secondary">{s.level}%</span>
+                        </div>
+                        <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${s.level}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            className={`h-full rounded-full ${isHighlight ? "animate-skill-glow" : ""}`}
+                            style={{ background: "var(--gradient-primary)" }}
+                          />
+                        </div>
                       </div>
-                      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${s.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className="h-full rounded-full"
-                          style={{ background: "var(--gradient-primary)" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </Reveal>

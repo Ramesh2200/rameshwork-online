@@ -163,6 +163,15 @@
 
 @utility animate-float { animation: float-y 6s ease-in-out infinite; }
 @utility animate-spin-slow { animation: spin-slow 14s linear infinite; }
+@keyframes skill-glow {
+  0%, 100% { box-shadow: 0 0 6px oklch(0.62 0.28 295 / 0.5), 0 0 14px oklch(0.82 0.17 205 / 0.3); }
+  50% { box-shadow: 0 0 12px oklch(0.62 0.28 295 / 0.8), 0 0 24px oklch(0.82 0.17 205 / 0.5); }
+}
+@keyframes skill-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@utility animate-skill-glow { animation: skill-glow 2.5s ease-in-out infinite; }
 @utility animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 
 @utility bg-grid {
