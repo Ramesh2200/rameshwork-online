@@ -38,6 +38,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
+const CONTACT_EMAIL = "ballariramesh0825@gmail.com";
+const EMAILJS_SERVICE_ID = "service_q9xlcre";
+const EMAILJS_TEMPLATE_ID = "template_7pt68gf";
+const EMAILJS_PUBLIC_KEY = "aGw6ujle7HSAwi-2G";
+
 const NAV = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
@@ -700,7 +705,7 @@ function Projects() {
 function Contact() {
   const [sending, setSending] = useState(false);
   const cards = [
-    { icon: Mail, label: "Email", value: "ballariramesh0825@gmail.com", href: "mailto:ballariramesh0825@gmail.com" },
+    { icon: Mail, label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
     { icon: Phone, label: "Phone", value: "+91 7672047896", href: "tel:+917672047896" },
     { icon: MapPin, label: "Location", value: "Bengaluru, Karnataka, India" },
     { icon: Linkedin, label: "LinkedIn", value: "ramesh-k", href: "https://www.linkedin.com/in/ramesh-k-71243026a/" },
@@ -751,14 +756,32 @@ function Contact() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 const form = e.target as HTMLFormElement;
+                const formData = new FormData(form);
+                const fromName = String(formData.get("from_name") ?? "").trim();
+                const replyTo = String(formData.get("reply_to") ?? "").trim();
+                const subject = String(formData.get("subject") ?? "").trim();
+                const message = String(formData.get("message") ?? "").trim();
                 setSending(true);
                 try {
                   const emailjs = (await import("@emailjs/browser")).default;
-                  await emailjs.sendForm(
-                    "service_q9xlcre",
-                    "template_7pt68gf",
-                    form,
-                    "aGw6ujle7HSAwi-2G"
+                  await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    {
+                      from_name: fromName,
+                      name: fromName,
+                      reply_to: replyTo,
+                      email: replyTo,
+                      user_email: replyTo,
+                      from_email: replyTo,
+                      to_name: "Ramesh",
+                      to_email: CONTACT_EMAIL,
+                      subject,
+                      title: subject,
+                      message,
+                      sent_at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+                    },
+                    { publicKey: EMAILJS_PUBLIC_KEY }
                   );
                   toast.success("Message sent! I'll get back to you soon.");
                   form.reset();
