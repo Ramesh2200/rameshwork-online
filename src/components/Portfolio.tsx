@@ -27,7 +27,9 @@ import {
   ChevronDown,
 } from "lucide-react";
 import profilePhotoAsset from "@/assets/ramesh-hero.jpg.asset.json";
+import resumeAsset from "@/assets/Ramesh_Resume.pdf.asset.json";
 const profilePhoto = profilePhotoAsset.url;
+const resumeUrl = resumeAsset.url;
 import projectCivic from "@/assets/project-civic.jpg";
 import projectRetino from "@/assets/project-retino.jpg";
 import { Button } from "@/components/ui/button";
@@ -230,8 +232,10 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); toast("Resume download will be available soon."); }}
+              href={resumeUrl}
+              download="Ramesh_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90"
               style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
             >
