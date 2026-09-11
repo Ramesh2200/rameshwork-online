@@ -40,8 +40,8 @@ import {
   Moon,
 } from "lucide-react";
 import profilePhoto from "@/assets/ramesh-hero-new.jpg";
-import resumeAsset from "@/assets/Ramesh_Resume.pdf.asset.json";
-const resumeUrl = resumeAsset.url;
+const resumeUrl = "/Ramesh_Resume.pdf";
+import projectSmartParkingImage from "@/assets/project-smart-parking.jpg";
 import projectAtsImage from "@/assets/project-ats-scorer.jpg";
 import projectFoodImage from "@/assets/project-food-delivery.jpg";
 import { Button } from "@/components/ui/button";
@@ -300,7 +300,7 @@ function Nav({
 /* ---------------- HERO WITH BEAUTIFUL ANIMATIONS ---------------- */
 function Hero() {
   const skillsList = [
-    "HTML5", "CSS3", "JavaScript", "React", "Python", "Java", "Spring Boot", "DSA & Algorithms"
+    "Java", "Spring Boot", "React.js", "REST APIs", "JDBC", "Hibernate", "MySQL", "HTML5", "CSS3", "JavaScript", "Servlets & JSP", "DSA"
   ];
 
   return (
@@ -322,12 +322,12 @@ function Hero() {
           <div className="mt-4 h-12 font-mono text-lg text-muted-foreground sm:text-xl md:text-2xl">
             <TypeAnimation
               sequence={[
+                "Java & Spring Boot Engineer", 1800,
+                "Smart Parking System Architect", 1800,
                 "Full Stack Software Engineer", 1800,
+                "React.js, HTML5 & CSS3 Specialist", 1800,
+                "RESTful APIs & Microservices", 1800,
                 "ATS Smart Resume Scorer Creator", 1800,
-                "Food Order & Delivery App Developer", 1800,
-                "React, HTML5 & CSS3 Specialist", 1800,
-                "Python & Java Spring Boot Engineer", 1800,
-                "Data Structures & Algorithms (DSA)", 1800,
               ]}
               wrapper="span"
               speed={45}
@@ -361,19 +361,13 @@ function Hero() {
             <motion.a
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
-              href="#ats-demo"
+              href="https://smart-parking-system-murex.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-primary-foreground transition"
               style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
             >
-              <FileCheck className="h-4 w-4" /> Try ATS Resume Scorer
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.95 }}
-              href="#food-demo"
-              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-semibold transition hover:border-secondary"
-            >
-              <ShoppingBag className="h-4 w-4 text-amber-400" /> Food Delivery Demo
+              <Zap className="h-4 w-4" /> Live Smart Parking App
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.04 }}
@@ -382,9 +376,17 @@ function Hero() {
               download="Ramesh_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-semibold transition hover:border-secondary"
+            >
+              <Download className="h-4 w-4 text-emerald-400" /> Download Resume (PDF)
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.95 }}
+              href="#ats-demo"
               className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-semibold hover:bg-muted transition"
             >
-              <Download className="h-4 w-4" /> Download Resume
+              <FileCheck className="h-4 w-4" /> Try ATS Scorer
             </motion.a>
           </div>
 
@@ -501,24 +503,24 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 /* ---------------- ABOUT ---------------- */
 function About() {
   const stats = [
-    { k: "HTML, CSS, JS, React", v: "Frontend UI Animations Stack" },
-    { k: "Python & Java", v: "Backend REST Services" },
-    { k: "ATS Resume Scorer", v: "Project 1 Featured App" },
-    { k: "Food Delivery App", v: "Project 2 Featured App" },
+    { k: "Java & Spring Boot", v: "Enterprise Full Stack Core" },
+    { k: "React.js & CSS3", v: "Fluid Modern UI Architecture" },
+    { k: "Smart Parking System", v: "Flagship Real-Time Platform" },
+    { k: "ATS Resume Scorer", v: "Featured NLP / Keyword Tool" },
   ];
   return (
     <section id="about" className="relative py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader eyebrow="About Me" title="Frontend & Python Full Stack Software Engineer" />
+        <SectionHeader eyebrow="About Me" title="Java Full Stack & Software Engineer" />
         <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
           <Reveal>
             <div className="gradient-border p-8">
               <div className="gradient-border-mask" />
               <p className="text-lg leading-relaxed text-muted-foreground">
-                I specialize in crafting beautiful web interfaces and fluid micro-animations using <span className="text-foreground font-semibold">HTML, CSS, JavaScript, and React</span>, backed by reliable server APIs developed in <span className="text-foreground font-semibold">Python</span>.
+                I specialize in developing scalable, responsive, and maintainable enterprise web applications using <span className="text-foreground font-semibold">Java, Spring Boot, React.js, REST APIs, JDBC, Hibernate, and MySQL</span>.
               </p>
               <p className="mt-4 text-muted-foreground">
-                My core expertise includes building real-world applications such as the <span className="text-foreground font-medium">ATS Smart Resume Scorer</span> and the <span className="text-foreground font-medium">Food Order & Delivery System</span>, combined with solid foundations in <span className="text-foreground font-medium">Java, Spring Boot, JDBC, Hibernate, and Data Structures & Algorithms (DSA)</span>.
+                My core portfolio projects include the production-ready <span className="text-foreground font-medium">Smart Vehicle Parking Management System</span> (featuring 32-bay real-time optical telemetry, Razorpay checkout, and touchless cryptographic QR entry passes), the <span className="text-foreground font-medium">ATS Smart Resume Analyzer</span>, and scalable <span className="text-foreground font-medium">E-Commerce Web Services</span>.
               </p>
               <div className="mt-8 flex flex-wrap gap-2 font-mono text-xs">
                 {["HTML5", "CSS3", "JavaScript", "React", "Python", "Java", "Spring Boot", "JDBC", "Hibernate", "DSA"].map((t) => (
@@ -633,24 +635,44 @@ function Skills() {
 function Projects() {
   const projectsList = [
     {
+      id: "parking-project",
+      title: "1. Smart Vehicle Parking Management System",
+      badge: "Java Full Stack & IoT Telemetry",
+      image: projectSmartParkingImage,
+      desc: "Engineered a full-stack smart parking management platform using Java, Spring Boot, Servlets, JSP, JDBC, and MySQL. Features real-time 32-bay optical telemetry, Razorpay digital payment checkout, cryptographic ZXing QR gate passes, touchless optical barrier verification, and a centralized facility administration control room.",
+      tech: ["Java 17", "Spring Boot", "Servlets & JSP", "JDBC", "MySQL", "Razorpay", "ZXing QR", "Google OAuth", "HTML5", "CSS3", "JavaScript", "Vercel"],
+      features: [
+        "32-Bay Live Optical Telemetry",
+        "Razorpay Instant Gateway Checkout",
+        "Cryptographic QR Gate Passes",
+        "Centralized Facility Control Center",
+        "Automated A4 PDF Invoicing",
+        "Google OAuth & Gmail 2FA OTP"
+      ],
+      demoUrl: "https://smart-parking-system-murex.vercel.app/",
+      repoUrl: "https://github.com/Ramesh2200/smart-parking-system",
+    },
+    {
       id: "ats-project",
-      title: "1. ATS Smart Resume Analyzer & Scorer",
+      title: "2. ATS Smart Resume Analyzer & Scorer",
       badge: "Python & React Project",
       image: projectAtsImage,
       desc: "An intelligent ATS resume scoring application built with React frontend (HTML/CSS) and Python REST backend. Analyzes resumes against job descriptions, calculates ATS suitability scores, extracts matched skills, and suggests keyword optimizations.",
       tech: ["HTML5", "CSS3", "JavaScript", "React", "Python", "REST API"],
       features: ["ATS Match Score Engine", "Keyword Parsing", "Missing Terms Finder", "Interactive Analysis UI"],
       demoAnchor: "#ats-demo",
+      repoUrl: "https://github.com/Ramesh2200/ats-resume-scorer",
     },
     {
       id: "food-project",
-      title: "2. FeastFlow Food Order & Delivery Application",
+      title: "3. FeastFlow Food Order & Delivery Application",
       badge: "Full Stack Web App",
       image: projectFoodImage,
       desc: "A complete food order and delivery application featuring a responsive HTML/CSS/React menu interface, cart state management, delivery address checkout, and a Python REST API backend that logs orders into the database.",
       tech: ["HTML5", "CSS3", "JavaScript", "React", "Python", "SQLite / MySQL"],
       features: ["Food Item Catalog", "Cart Total Calculation", "Instant Order Checkout", "Real-Time Delivery Dispatch"],
       demoAnchor: "#food-demo",
+      repoUrl: "https://github.com/Ramesh2200/feastflow-food-delivery-app",
     },
   ];
 
@@ -659,14 +681,14 @@ function Projects() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
           eyebrow="Featured Projects"
-          title="ATS Resume Scorer & Food Delivery App"
-          sub="Explore the two core full-stack applications built using HTML, CSS, JavaScript, React, and Python."
+          title="Smart Vehicle Parking System & Full-Stack Apps"
+          sub="Explore production-ready full-stack applications engineered using Java, Spring Boot, React.js, Python, and modern web architectures."
         />
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projectsList.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
-              <article className="group gradient-border overflow-hidden">
+              <article className="group gradient-border flex flex-col h-full overflow-hidden">
                 <div className="gradient-border-mask" />
                 <div className="relative aspect-[16/10] overflow-hidden rounded-t-[calc(var(--radius-2xl)-1px)]">
                   <img
@@ -682,40 +704,42 @@ function Projects() {
                     {p.badge}
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-lg font-semibold">{p.title}</h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-3">{p.desc}</p>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {p.tech.map((t) => (
-                      <span key={t} className="rounded-md border border-border bg-muted/40 px-2.5 py-0.5 font-mono text-[11px] text-secondary">
+                      <span key={t} className="rounded-md border border-border bg-muted/40 px-2 py-0.5 font-mono text-[10px] text-secondary">
                         {t}
                       </span>
                     ))}
                   </div>
 
-                  <ul className="mt-4 grid grid-cols-2 gap-1.5 text-xs text-muted-foreground">
+                  <ul className="mt-4 grid grid-cols-2 gap-1.5 text-[11px] text-muted-foreground mb-4">
                     {p.features.map((f) => (
                       <li key={f} className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                        {f}
+                        <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                        <span className="truncate">{f}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-border/40">
                     <a
-                      href={p.demoAnchor}
-                      className="inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-semibold text-primary-foreground"
+                      href={p.demoUrl || p.demoAnchor}
+                      target={p.demoUrl ? "_blank" : undefined}
+                      rel={p.demoUrl ? "noopener noreferrer" : undefined}
+                      className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold text-primary-foreground"
                       style={{ background: "var(--gradient-primary)" }}
                     >
                       <Zap className="h-3.5 w-3.5" /> Launch Live Demo
                     </a>
                     <a
-                      href="https://github.com/Ramesh2200"
+                      href={p.repoUrl || "https://github.com/Ramesh2200"}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-xl glass px-4 py-2 text-xs font-semibold"
+                      className="inline-flex items-center gap-1.5 rounded-xl glass px-3.5 py-1.5 text-xs font-semibold"
                     >
                       <Github className="h-3.5 w-3.5" /> Repository
                     </a>
