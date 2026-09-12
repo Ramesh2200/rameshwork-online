@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, useInView } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import {
   Download,
@@ -9,40 +9,25 @@ import {
   Phone,
   MapPin,
   ArrowUp,
-  ArrowRight,
   ExternalLink,
   GraduationCap,
   Briefcase,
-  Code2,
-  Server,
-  Database as DatabaseIcon,
-  Cloud,
-  Wrench,
-  Users,
-  Sparkles,
-  Cpu,
   Layers,
-  Globe,
   Send,
   ChevronDown,
-  Terminal,
-  FileCheck,
-  ShoppingBag,
-  Plus,
-  Minus,
   CheckCircle2,
-  RefreshCw,
-  Star,
-  Search,
-  Check,
   Zap,
   Sun,
   Moon,
+  Server,
+  Database as DatabaseIcon,
+  Code2,
+  Award,
+  Calendar,
+  Sparkles,
 } from "lucide-react";
 import profilePhoto from "@/assets/ramesh-hero-new.jpg";
-const resumeUrl = "/Ramesh_Resume.pdf";
 import projectSmartParkingImage from "@/assets/project-smart-parking.jpg";
-import projectAtsImage from "@/assets/project-ats-scorer.jpg";
 import projectFoodImage from "@/assets/project-food-delivery.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -50,20 +35,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
+const resumeUrl = "/Ramesh_Resume.pdf";
 const CONTACT_EMAIL = "ballariramesh0825@gmail.com";
+const CONTACT_PHONE = "+91 7672047816";
 const EMAILJS_SERVICE_ID = "service_q9xlcre";
 const EMAILJS_TEMPLATE_ID = "template_7pt68gf";
 const EMAILJS_PUBLIC_KEY = "aGw6ujle7HSAwi-2G";
-
-const PYTHON_API_BASE = "http://localhost:8000/api";
 
 const NAV = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
-  { id: "ats-demo", label: "ATS Resume Demo" },
-  { id: "food-demo", label: "Food Delivery Demo" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -73,7 +58,6 @@ export function Portfolio() {
   const [active, setActive] = useState("home");
   const [showTop, setShowTop] = useState(false);
   const [mouse, setMouse] = useState({ x: 50, y: 30 });
-  const [apiOnline, setApiOnline] = useState(false);
 
   // Dark & Light Theme State
   const [theme, setTheme] = useState<"dark" | "light">(() => {
@@ -101,20 +85,6 @@ export function Portfolio() {
       setRipples((prev) => prev.filter((r) => r.id !== id));
     }, 600);
   };
-
-  useEffect(() => {
-    const checkHealth = async () => {
-      try {
-        const res = await fetch(`${PYTHON_API_BASE}/health`);
-        setApiOnline(res.ok);
-      } catch {
-        setApiOnline(false);
-      }
-    };
-    checkHealth();
-    const timer = setInterval(checkHealth, 8000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -171,13 +141,13 @@ export function Portfolio() {
         style={{ scaleX, background: "var(--gradient-primary)" }}
       />
 
-      <Nav active={active} apiOnline={apiOnline} theme={theme} setTheme={setTheme} />
+      <Nav active={active} theme={theme} setTheme={setTheme} />
       <Hero />
       <About />
       <Skills />
       <Projects />
-      <AtsResumeDemo />
-      <FoodDeliveryDemo />
+      <Experience />
+      <Education />
       <Contact />
       <Footer />
 
@@ -200,12 +170,10 @@ export function Portfolio() {
 /* ---------------- NAV ---------------- */
 function Nav({
   active,
-  apiOnline,
   theme,
   setTheme,
 }: {
   active: string;
-  apiOnline: boolean;
   theme: "dark" | "light";
   setTheme: React.Dispatch<React.SetStateAction<"dark" | "light">>;
 }) {
@@ -221,24 +189,30 @@ function Nav({
           </div>
           <div className="flex flex-col">
             <span className="text-gradient font-display text-lg font-extrabold tracking-tight">Ramesh.K</span>
-            <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Full Stack Dev</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Java Full Stack Dev</span>
           </div>
         </a>
 
         <div className="hidden items-center gap-1 xl:flex">
-          <div className="mr-3 flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-[11px] font-mono">
-            <span className={`h-2 w-2 rounded-full ${apiOnline ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`} />
-            <span className="text-muted-foreground">
-              {apiOnline ? "Python Backend & REST API Live" : "Python Backend Ready"}
-            </span>
-          </div>
+          <a
+            href="https://smart-parking-system-murex.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            className="mr-3 flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono text-emerald-400 hover:border-emerald-400 transition"
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Smart Parking Telemetry Live</span>
+          </a>
           <nav className="flex items-center gap-1">
             {NAV.map((n) => (
               <a
                 key={n.id}
                 href={`#${n.id}`}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${active === n.id ? "text-foreground bg-secondary/20 text-secondary border border-secondary/30" : "text-muted-foreground hover:text-foreground"
-                  }`}
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                  active === n.id
+                    ? "text-foreground bg-secondary/20 text-secondary border border-secondary/30"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {n.label}
               </a>
@@ -300,7 +274,7 @@ function Nav({
 /* ---------------- HERO WITH BEAUTIFUL ANIMATIONS ---------------- */
 function Hero() {
   const skillsList = [
-    "Java", "Spring Boot", "React.js", "REST APIs", "JDBC", "Hibernate", "MySQL", "HTML5", "CSS3", "JavaScript", "Servlets & JSP", "DSA"
+    "Java", "Spring Boot", "React.js", "REST APIs", "JDBC", "Hibernate", "MySQL", "MVC Architecture", "HTML5 & CSS3"
   ];
 
   return (
@@ -311,7 +285,7 @@ function Hero() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="mb-4 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-muted-foreground">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse-glow" style={{ boxShadow: "0 0 10px #34d399" }} />
-            <span className="font-semibold text-foreground">Java & Python Full Stack Developer</span>
+            <span className="font-semibold text-foreground">Java Full-Stack Software Engineer</span>
           </div>
 
           <p className="mb-2 font-mono text-sm text-secondary">👋 Welcome, I'm</p>
@@ -322,12 +296,12 @@ function Hero() {
           <div className="mt-4 h-12 font-mono text-lg text-muted-foreground sm:text-xl md:text-2xl">
             <TypeAnimation
               sequence={[
-                "Java & Spring Boot Engineer", 1800,
-                "Smart Parking System Architect", 1800,
-                "Full Stack Software Engineer", 1800,
-                "React.js, HTML5 & CSS3 Specialist", 1800,
-                "RESTful APIs & Microservices", 1800,
-                "ATS Smart Resume Scorer Creator", 1800,
+                "Java Full-Stack Software Engineer", 1800,
+                "Smart Vehicle Parking System Architect", 1800,
+                "Spring Boot & RESTful APIs Specialist", 1800,
+                "React.js & Modern Frontend Developer", 1800,
+                "MySQL, JDBC & Hibernate Engineer", 1800,
+                "B.E. Computer Science Graduate", 1800,
               ]}
               wrapper="span"
               speed={45}
@@ -337,7 +311,7 @@ function Hero() {
           </div>
 
           <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg leading-relaxed">
-            Crafting modern, scalable web applications with <span className="text-foreground font-semibold">HTML, CSS, JavaScript, React</span> frontends, <span className="text-foreground font-semibold">Python</span> & <span className="text-foreground font-semibold">Java Spring Boot</span> backends, and solid foundations in <span className="text-foreground font-semibold">Data Structures & Algorithms (DSA)</span>.
+            Computer Science Engineering graduate with strong expertise in <span className="text-foreground font-semibold">Java, Spring Boot, React.js, REST APIs, JDBC, Hibernate, and MySQL</span>. Proficient in developing scalable, responsive, and maintainable web applications using modern frontend and backend architectures.
           </p>
 
           {/* Clean Interactive Skill Badges Pills */}
@@ -363,11 +337,11 @@ function Hero() {
               whileTap={{ scale: 0.95 }}
               href="https://smart-parking-system-murex.vercel.app/"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-primary-foreground transition"
               style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
             >
-              <Zap className="h-4 w-4" /> Live Smart Parking App
+              <Zap className="h-4 w-4" /> Launch Smart Parking Live
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.04 }}
@@ -378,15 +352,15 @@ function Hero() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-semibold transition hover:border-secondary"
             >
-              <Download className="h-4 w-4 text-emerald-400" /> Download Resume (PDF)
+              <Download className="h-4 w-4 text-emerald-400" /> Download Resume
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
-              href="#ats-demo"
+              href="#contact"
               className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-semibold hover:bg-muted transition"
             >
-              <FileCheck className="h-4 w-4" /> Try ATS Scorer
+              <Mail className="h-4 w-4" /> Get in Touch
             </motion.a>
           </div>
 
@@ -447,8 +421,9 @@ function Hero() {
 function Socials() {
   const items = [
     { href: "https://github.com/Ramesh2200", icon: Github, label: "GitHub" },
-    { href: "https://www.linkedin.com/in/ramesh-k-71243026a/", icon: Linkedin, label: "LinkedIn" },
-    { href: "mailto:ballariramesh0825@gmail.com", icon: Mail, label: "Email" },
+    { href: "https://www.linkedin.com/in/ramesh-k-71243026/", icon: Linkedin, label: "LinkedIn" },
+    { href: `mailto:${CONTACT_EMAIL}`, icon: Mail, label: "Email" },
+    { href: `tel:${CONTACT_PHONE.replace(/\s+/g, '')}`, icon: Phone, label: "Phone" },
   ];
   return (
     <div className="flex gap-2">
@@ -456,8 +431,8 @@ function Socials() {
         <a
           key={it.label}
           href={it.href}
-          target="_blank"
-          rel="noreferrer"
+          target={it.href.startsWith("http") ? "_blank" : undefined}
+          rel={it.href.startsWith("http") ? "noreferrer" : undefined}
           aria-label={it.label}
           className="grid h-10 w-10 place-items-center rounded-xl glass transition hover:-translate-y-0.5 hover:text-secondary"
         >
@@ -503,27 +478,27 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 /* ---------------- ABOUT ---------------- */
 function About() {
   const stats = [
-    { k: "Java & Spring Boot", v: "Enterprise Full Stack Core" },
-    { k: "React.js & CSS3", v: "Fluid Modern UI Architecture" },
-    { k: "Smart Parking System", v: "Flagship Real-Time Platform" },
-    { k: "ATS Resume Scorer", v: "Featured NLP / Keyword Tool" },
+    { k: "Smart Parking", v: "Flagship Production Platform" },
+    { k: "Java & Spring Boot", v: "Enterprise REST & MVC Services" },
+    { k: "React.js & CSS3", v: "High-Performance Modern UI" },
+    { k: "MySQL & JDBC", v: "Relational Database Architecture" },
   ];
   return (
     <section id="about" className="relative py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader eyebrow="About Me" title="Java Full Stack & Software Engineer" />
+        <SectionHeader eyebrow="About Me" title="Java Full-Stack Software Engineer" />
         <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
           <Reveal>
             <div className="gradient-border p-8">
               <div className="gradient-border-mask" />
               <p className="text-lg leading-relaxed text-muted-foreground">
-                I specialize in developing scalable, responsive, and maintainable enterprise web applications using <span className="text-foreground font-semibold">Java, Spring Boot, React.js, REST APIs, JDBC, Hibernate, and MySQL</span>.
+                Computer Science Engineering graduate with strong expertise in <span className="text-foreground font-semibold">Java, Spring Boot, React.js, REST APIs, JDBC, Hibernate, and MySQL</span>. Proficient in developing scalable, responsive, and maintainable web applications using modern frontend and backend technologies.
               </p>
               <p className="mt-4 text-muted-foreground">
-                My core portfolio projects include the production-ready <span className="text-foreground font-medium">Smart Vehicle Parking Management System</span> (featuring 32-bay real-time optical telemetry, Razorpay checkout, and touchless cryptographic QR entry passes), the <span className="text-foreground font-medium">ATS Smart Resume Analyzer</span>, and scalable <span className="text-foreground font-medium">E-Commerce Web Services</span>.
+                Strong understanding of <span className="text-foreground font-medium">Object-Oriented Programming, MVC Architecture, database design, CRUD operations, and API integration</span>. Skilled in writing clean, reliable code with a focus on performance, security, and user experience. A quick learner with strong problem-solving, teamwork, and software engineering capabilities.
               </p>
               <div className="mt-8 flex flex-wrap gap-2 font-mono text-xs">
-                {["HTML5", "CSS3", "JavaScript", "React", "Python", "Java", "Spring Boot", "JDBC", "Hibernate", "DSA"].map((t) => (
+                {["Java 17/21", "Spring Boot", "React.js", "RESTful APIs", "JDBC", "Hibernate", "MySQL", "PostgreSQL", "Java Servlets & JSP", "HTML5 & CSS3"].map((t) => (
                   <span key={t} className="rounded-full border border-border bg-muted/40 px-3.5 py-1 text-muted-foreground">
                     {t}
                   </span>
@@ -534,7 +509,7 @@ function About() {
           <Reveal delay={0.1}>
             <div className="grid h-full grid-cols-2 gap-4">
               {stats.map((s) => (
-                <div key={s.v} className="gradient-border flex flex-col justify-center p-5">
+                <div key={s.k} className="gradient-border flex flex-col justify-center p-5">
                   <div className="gradient-border-mask" />
                   <div className="font-display text-xl font-bold text-gradient">{s.k}</div>
                   <div className="mt-1 text-xs text-muted-foreground">{s.v}</div>
@@ -552,33 +527,34 @@ function About() {
 function Skills() {
   const groups = [
     {
-      title: "Frontend Stack (HTML, CSS, React)",
-      icon: Layers,
-      items: [
-        { name: "HTML5 & Semantic UI", level: 95 },
-        { name: "CSS3 & Modern Animations", level: 92 },
-        { name: "JavaScript (ES6+)", level: 90 },
-        { name: "React.js Component Architecture", level: 92 },
-      ],
-    },
-    {
-      title: "Backend & Core Languages",
+      title: "Programming & Backend",
       icon: Server,
       items: [
-        { name: "Python (FastAPI & Flask APIs)", level: 88 },
-        { name: "Java 21 Core", level: 90 },
-        { name: "Spring Boot & REST Web Services", level: 88 },
-        { name: "JDBC & Hibernate ORM", level: 85 },
+        { name: "Java (Core & Advanced)", level: 95 },
+        { name: "Spring Boot & RESTful APIs", level: 92 },
+        { name: "Hibernate ORM & JDBC", level: 90 },
+        { name: "Java Servlets & JSP", level: 88 },
+        { name: "Python", level: 85 },
       ],
     },
     {
-      title: "Algorithms & Databases",
-      icon: Cpu,
+      title: "Frontend Development",
+      icon: Layers,
       items: [
-        { name: "Data Structures & Algorithms (DSA)", level: 88 },
-        { name: "Problem Solving & Time Complexity", level: 90 },
-        { name: "MySQL & SQLite Database Design", level: 88 },
-        { name: "Git & Version Control", level: 92 },
+        { name: "React.js Component Architecture", level: 92 },
+        { name: "HTML5 Semantic UI", level: 95 },
+        { name: "CSS3 & Modern Responsive Design", level: 92 },
+        { name: "JavaScript (ES6+)", level: 90 },
+      ],
+    },
+    {
+      title: "Databases & Core Architecture",
+      icon: DatabaseIcon,
+      items: [
+        { name: "MySQL & Relational Schema Design", level: 92 },
+        { name: "PostgreSQL & SQLite", level: 86 },
+        { name: "MVC Architecture & CRUD Operations", level: 94 },
+        { name: "Object-Oriented Programming (OOP)", level: 95 },
       ],
     },
   ];
@@ -588,8 +564,8 @@ function Skills() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
           eyebrow="Core Competencies"
-          title="Skills & Technical Mastery"
-          sub="HTML, CSS, JavaScript, React, Python, Java, Spring Boot, JDBC, Hibernate, and DSA Algorithms."
+          title="Skills & Technical Expertise"
+          sub="Expertise across Java, Spring Boot, React.js, RESTful APIs, JDBC, Hibernate, and MySQL."
         />
         <div className="grid gap-6 md:grid-cols-3">
           {groups.map((g, i) => (
@@ -636,43 +612,34 @@ function Projects() {
   const projectsList = [
     {
       id: "parking-project",
-      title: "1. Smart Vehicle Parking Management System",
-      badge: "Java Full Stack & IoT Telemetry",
+      title: "Smart Vehicle Parking Management System",
+      duration: "Jul – Nov 2026",
+      badge: "Flagship Production Project • Vercel",
       image: projectSmartParkingImage,
-      desc: "Engineered a full-stack smart parking management platform using Java, Spring Boot, Servlets, JSP, JDBC, and MySQL. Features real-time 32-bay optical telemetry, Razorpay digital payment checkout, cryptographic ZXing QR gate passes, touchless optical barrier verification, and a centralized facility administration control room.",
-      tech: ["Java 17", "Spring Boot", "Servlets & JSP", "JDBC", "MySQL", "Razorpay", "ZXing QR", "Google OAuth", "HTML5", "CSS3", "JavaScript", "Vercel"],
-      features: [
-        "32-Bay Live Optical Telemetry",
-        "Razorpay Instant Gateway Checkout",
-        "Cryptographic QR Gate Passes",
-        "Centralized Facility Control Center",
-        "Automated A4 PDF Invoicing",
-        "Google OAuth & Gmail 2FA OTP"
+      desc: "Engineered a full-stack commercial smart parking management platform using React.js, Java, Spring Boot, Servlets, JSP, JDBC, and SQL, enabling automated parking-slot booking, vehicle entry/exit tracking, and centralized parking operations.",
+      bullets: [
+        "Architected RESTful APIs and MVC-based services with SQL integration for user, vehicle, slot, booking, and transaction management, reducing manual administrative workflows.",
+        "Developed responsive user and admin dashboards with secure authentication, real-time slot availability, automated fee calculation, and centralized management, improving parking accessibility and operational efficiency.",
+        "Integrated Razorpay payment gateway for instant checkout, optical ZXing cryptographic QR gate passes, and automated commercial A4 PDF tax receipt invoicing.",
       ],
+      tech: ["HTML5", "CSS3", "JavaScript", "React.js", "Java 17", "Spring Boot", "RESTful APIs", "MVC", "SQL", "JDBC", "Servlets & JSP", "Razorpay", "ZXing QR", "Vercel"],
       demoUrl: "https://smart-parking-system-murex.vercel.app/",
       repoUrl: "https://github.com/Ramesh2200/smart-parking-system",
     },
     {
-      id: "ats-project",
-      title: "2. ATS Smart Resume Analyzer & Scorer",
-      badge: "Python & React Project",
-      image: projectAtsImage,
-      desc: "An intelligent ATS resume scoring application built with React frontend (HTML/CSS) and Python REST backend. Analyzes resumes against job descriptions, calculates ATS suitability scores, extracts matched skills, and suggests keyword optimizations.",
-      tech: ["HTML5", "CSS3", "JavaScript", "React", "Python", "REST API"],
-      features: ["ATS Match Score Engine", "Keyword Parsing", "Missing Terms Finder", "Interactive Analysis UI"],
-      demoAnchor: "#ats-demo",
-      repoUrl: "https://github.com/Ramesh2200/ats-resume-scorer",
-    },
-    {
-      id: "food-project",
-      title: "3. FeastFlow Food Order & Delivery Application",
-      badge: "Full Stack Web App",
+      id: "ecommerce-project",
+      title: "E-Commerce Website",
+      duration: "Mar – Jun 2026",
+      badge: "Full-Stack Web Platform",
       image: projectFoodImage,
-      desc: "A complete food order and delivery application featuring a responsive HTML/CSS/React menu interface, cart state management, delivery address checkout, and a Python REST API backend that logs orders into the database.",
-      tech: ["HTML5", "CSS3", "JavaScript", "React", "Python", "SQLite / MySQL"],
-      features: ["Food Item Catalog", "Cart Total Calculation", "Instant Order Checkout", "Real-Time Delivery Dispatch"],
-      demoAnchor: "#food-demo",
-      repoUrl: "https://github.com/Ramesh2200/feastflow-food-delivery-app",
+      desc: "Engineered a full-stack E-Commerce platform using React.js, Spring Boot, Hibernate, REST APIs, and MySQL, implementing authentication, product discovery, cart management, checkout, and order placement workflows.",
+      bullets: [
+        "Developed scalable RESTful services and relational database integration for users, products, categories, carts, orders, and order items, implementing robust CRUD operations.",
+        "Enhanced the shopping experience through product search, filtering, responsive interfaces, and admin management, and successfully deployed the application on Vercel.",
+      ],
+      tech: ["HTML5", "CSS3", "JavaScript", "React.js", "Spring Boot", "Hibernate", "JDBC", "MySQL", "REST APIs"],
+      demoUrl: "https://github.com/Ramesh2200",
+      repoUrl: "https://github.com/Ramesh2200",
     },
   ];
 
@@ -681,68 +648,79 @@ function Projects() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
           eyebrow="Featured Projects"
-          title="Smart Vehicle Parking System & Full-Stack Apps"
-          sub="Explore production-ready full-stack applications engineered using Java, Spring Boot, React.js, Python, and modern web architectures."
+          title="Full-Stack Production Platforms"
+          sub="Enterprise applications engineered using Java, Spring Boot, React.js, RESTful APIs, and Relational Databases."
         />
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-12">
           {projectsList.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
-              <article className="group gradient-border flex flex-col h-full overflow-hidden">
+              <article className="group gradient-border overflow-hidden">
                 <div className="gradient-border-mask" />
-                <div className="relative aspect-[16/10] overflow-hidden rounded-t-[calc(var(--radius-2xl)-1px)]">
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    width={1280}
-                    height={800}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-                  <div className="absolute top-3 right-3 rounded-full glass px-3 py-1 font-mono text-[11px] font-semibold text-secondary">
-                    {p.badge}
-                  </div>
-                </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-3">{p.desc}</p>
-
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span key={t} className="rounded-md border border-border bg-muted/40 px-2 py-0.5 font-mono text-[10px] text-secondary">
-                        {t}
-                      </span>
-                    ))}
+                <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 p-6 sm:p-8 items-center">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border/80">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      width={1280}
+                      height={800}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    <div className="absolute top-3 right-3 rounded-full glass px-3 py-1 font-mono text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
+                      {p.badge}
+                    </div>
+                    <div className="absolute bottom-3 left-3 rounded-md glass px-2.5 py-1 font-mono text-[11px] text-muted-foreground flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 text-secondary" />
+                      <span>{p.duration}</span>
+                    </div>
                   </div>
 
-                  <ul className="mt-4 grid grid-cols-2 gap-1.5 text-[11px] text-muted-foreground mb-4">
-                    {p.features.map((f) => (
-                      <li key={f} className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
-                        <span className="truncate">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex flex-col justify-center">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-mono text-xs text-secondary font-semibold">0{i + 1} // FEATURED</span>
+                    </div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight">{p.title}</h3>
+                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
 
-                  <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-border/40">
-                    <a
-                      href={p.demoUrl || p.demoAnchor}
-                      target={p.demoUrl ? "_blank" : undefined}
-                      rel={p.demoUrl ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold text-primary-foreground"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <Zap className="h-3.5 w-3.5" /> Launch Live Demo
-                    </a>
-                    <a
-                      href={p.repoUrl || "https://github.com/Ramesh2200"}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-xl glass px-3.5 py-1.5 text-xs font-semibold"
-                    >
-                      <Github className="h-3.5 w-3.5" /> Repository
-                    </a>
+                    <div className="mt-4 space-y-2">
+                      {p.bullets.map((b, bIdx) => (
+                        <div key={bIdx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                          <span>{b}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                      {p.tech.map((t) => (
+                        <span key={t} className="rounded-md border border-border bg-muted/40 px-2.5 py-0.5 font-mono text-[11px] text-secondary">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap gap-3 pt-4 border-t border-border/40">
+                      <a
+                        href={p.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold text-primary-foreground"
+                        style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
+                      >
+                        <Zap className="h-4 w-4" /> Live Website
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                      <a
+                        href={p.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl glass px-5 py-2.5 text-xs font-semibold hover:border-secondary transition"
+                      >
+                        <Github className="h-4 w-4" /> View Source
+                      </a>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -754,363 +732,125 @@ function Projects() {
   );
 }
 
-/* ---------------- 1. INTERACTIVE ATS SMART RESUME SCORER DEMO ---------------- */
-function AtsResumeDemo() {
-  const [resumeText, setResumeText] = useState(
-    "Experienced Software Developer skilled in Java, Spring Boot, Python, HTML5, CSS3, JavaScript, React, MySQL database design, REST APIs, and Data Structures Algorithms (DSA)."
-  );
-  const [jobDescription, setJobDescription] = useState(
-    "Looking for a Full Stack Software Engineer with expertise in Java, Spring Boot, Python, React.js, HTML, CSS, JavaScript, MySQL database, and strong DSA problem solving."
-  );
-  const [analyzing, setAnalyzing] = useState(false);
-  const [atsResult, setAtsResult] = useState<any>(null);
-
-  const runAtsCheck = async () => {
-    setAnalyzing(true);
-    try {
-      const res = await fetch(`${PYTHON_API_BASE}/ats-score`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          resume_text: resumeText,
-          job_description: jobDescription,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setAtsResult(data.analysis);
-        toast.success("ATS Analysis completed by Python API!");
-      }
-    } catch {
-      // Offline fallback score calculation
-      setAtsResult({
-        score: 88,
-        matched_count: 8,
-        total_keywords: 10,
-        matched_keywords: ["java", "python", "react", "html5", "css3", "javascript", "mysql", "dsa"],
-        missing_keywords: ["microservices", "docker"],
-        feedback: "Excellent resume match! Contains core skills required by target role."
-      });
-      toast.success("ATS Analysis calculated!");
-    } finally {
-      setAnalyzing(false);
-    }
-  };
-
+/* ---------------- EXPERIENCE ---------------- */
+function Experience() {
   return (
-    <section id="ats-demo" className="relative py-24 bg-card/20 border-y border-border/50">
+    <section id="experience" className="relative py-24 bg-card/20 border-y border-border/50">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
-          eyebrow="Interactive Project #1"
-          title="ATS Smart Resume Analyzer & Scorer"
-          sub="Live interactive module powered by React frontend (HTML/CSS) and Python REST API endpoint."
+          eyebrow="Work History"
+          title="Professional Experience"
+          sub="Internship and industrial full-stack development experience."
         />
 
-        <div className="gradient-border p-6 md:p-8">
-          <div className="gradient-border-mask" />
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <div>
-              <label className="mb-2 block font-mono text-xs font-semibold text-secondary flex items-center gap-1.5">
-                <FileCheck className="h-4 w-4" /> Candidate Resume Text:
-              </label>
-              <Textarea
-                rows={6}
-                value={resumeText}
-                onChange={(e) => setResumeText(e.target.value)}
-                placeholder="Paste candidate resume text here..."
-                className="bg-muted/40 font-mono text-xs"
-              />
-            </div>
-
-            <div>
-              <label className="mb-2 block font-mono text-xs font-semibold text-secondary flex items-center gap-1.5">
-                <Search className="h-4 w-4" /> Target Job Description:
-              </label>
-              <Textarea
-                rows={6}
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                placeholder="Paste job description keywords here..."
-                className="bg-muted/40 font-mono text-xs"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6">
-            <Button
-              onClick={runAtsCheck}
-              disabled={analyzing}
-              className="h-11 px-6 text-primary-foreground font-semibold"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
-            >
-              {analyzing ? (
-                <>
-                  <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> Analyzing via Python API...
-                </>
-              ) : (
-                <>
-                  <Zap className="mr-2 h-4 w-4" /> Calculate ATS Score & Match
-                </>
-              )}
-            </Button>
-
-            <span className="font-mono text-xs text-muted-foreground">
-              Endpoint: <code className="text-secondary font-bold">POST /api/ats-score</code>
-            </span>
-          </div>
-
-          {/* ATS Analysis Output Card */}
-          {atsResult && (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 rounded-2xl border border-border/80 bg-background/90 p-6"
-            >
-              <div className="grid gap-6 md:grid-cols-[1fr_2fr] items-center">
-                <div className="text-center md:border-r md:border-border/60 md:pr-6">
-                  <div className="text-xs uppercase font-mono text-muted-foreground">ATS Match Score</div>
-                  <div className="mt-2 font-display text-5xl font-extrabold text-gradient">
-                    {atsResult.score}%
-                  </div>
-                  <div className="mt-2 text-xs font-mono text-emerald-400">
-                    {atsResult.score >= 80 ? "HIGH MATCH ✅" : "MODERATE MATCH ⚠️"}
-                  </div>
-                </div>
-
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <div className="gradient-border p-8">
+              <div className="gradient-border-mask" />
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-foreground">{atsResult.feedback}</h4>
-
-                  <div className="mt-4">
-                    <span className="text-xs font-mono text-muted-foreground">Matched Keywords ({atsResult.matched_keywords?.length || 0}):</span>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {atsResult.matched_keywords?.map((k: string) => (
-                        <span key={k} className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] text-emerald-300">
-                          ✓ {k}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="inline-flex items-center gap-2 text-xs font-mono text-secondary mb-1">
+                    <Briefcase className="h-3.5 w-3.5" />
+                    <span>Software Developer Intern</span>
                   </div>
-
-                  {atsResult.missing_keywords && atsResult.missing_keywords.length > 0 && (
-                    <div className="mt-3">
-                      <span className="text-xs font-mono text-muted-foreground">Suggested Keywords to Add:</span>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {atsResult.missing_keywords.map((k: string) => (
-                          <span key={k} className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-[11px] text-amber-300">
-                            + {k}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  <h3 className="font-display text-2xl font-bold">Tap Academy</h3>
+                  <p className="text-sm text-muted-foreground">Java Full-Stack Development</p>
+                </div>
+                <div className="rounded-full glass px-4 py-1.5 font-mono text-xs text-muted-foreground border border-border">
+                  2026
                 </div>
               </div>
-            </motion.div>
-          )}
+
+              <div className="mt-6 space-y-3 text-sm text-muted-foreground leading-relaxed">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Applied Java, Spring Boot, React.js, REST APIs, JDBC, and MySQL to develop and integrate full-stack application components.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Implemented MVC architecture, CRUD operations, database connectivity, and API integration while following modular and maintainable development practices.</span>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-2 font-mono text-xs">
+                {["Java", "Spring Boot", "React.js", "REST APIs", "JDBC", "MySQL", "MVC Architecture", "CRUD Operations"].map((t) => (
+                  <span key={t} className="rounded-md border border-border bg-muted/40 px-2.5 py-1 text-secondary">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------------- 2. INTERACTIVE FOOD ORDER & DELIVERY APP DEMO ---------------- */
-function FoodDeliveryDemo() {
-  const sampleMenu = [
-    { id: 1, name: "Truffle Mushroom Burger", price: 299, rating: 4.9, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60", desc: "Juicy patty with wild mushrooms & truffle aioli" },
-    { id: 2, name: "Artisanal Pepperoni Pizza", price: 449, rating: 4.8, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60", desc: "Stone-baked crust with fresh mozzarella & hot honey" },
-    { id: 3, name: "Avocado & Salmon Poke Bowl", price: 389, rating: 4.9, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60", desc: "Fresh Atlantic salmon, avocado & sesame dressing" },
-    { id: 4, name: "Matcha Mango Boba Drink", price: 149, rating: 4.9, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500&auto=format&fit=crop&q=60", desc: "Refreshing matcha green tea with mango boba" },
+/* ---------------- EDUCATION ---------------- */
+function Education() {
+  const educationList = [
+    {
+      degree: "B.E. in Computer Science & Engineering",
+      institution: "Yenepoya Institute of Technology, Mangalore, Karnataka",
+      period: "2022 – 2026",
+      score: "CGPA: 7.9",
+      icon: GraduationCap,
+      highlight: true,
+    },
+    {
+      degree: "Pre-University Course (PUC)",
+      institution: "Bellary Independent PU College, Bellary, Karnataka",
+      period: "2020 – 2022",
+      score: "66%",
+      icon: Award,
+      highlight: false,
+    },
+    {
+      degree: "Secondary School Leaving Certificate (S.S.L.C)",
+      institution: "Morarji Desai Residential School, Bellary, Karnataka",
+      period: "2016 – 2020",
+      score: "86%",
+      icon: Award,
+      highlight: false,
+    },
   ];
 
-  const [cart, setCart] = useState<{ [id: number]: number }>({ 1: 1, 2: 1 });
-  const [customerName, setCustomerName] = useState("Ramesh K");
-  const [address, setAddress] = useState("Bengaluru, Karnataka");
-  const [ordering, setOrdering] = useState(false);
-  const [orderConfirmation, setOrderConfirmation] = useState<any>(null);
-
-  const addToCart = (id: number) => {
-    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
-  };
-
-  const removeFromCart = (id: number) => {
-    setCart((prev) => {
-      const copy = { ...prev };
-      if (copy[id] > 1) copy[id]--;
-      else delete copy[id];
-      return copy;
-    });
-  };
-
-  const calculateTotal = () => {
-    return Object.entries(cart).reduce((sum, [idStr, qty]) => {
-      const item = sampleMenu.find((m) => m.id === Number(idStr));
-      return sum + (item ? item.price * qty : 0);
-    }, 0);
-  };
-
-  const placeFoodOrder = async () => {
-    const total = calculateTotal();
-    if (total === 0) {
-      toast.error("Cart is empty!");
-      return;
-    }
-    setOrdering(true);
-    setOrderConfirmation(null);
-
-    try {
-      const res = await fetch(`${PYTHON_API_BASE}/food-order`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customer_name: customerName,
-          customer_address: address,
-          total_amount: total,
-          order_items: Object.entries(cart).map(([idStr, qty]) => {
-            const item = sampleMenu.find((m) => m.id === Number(idStr));
-            return { name: item?.name, quantity: qty, price: item?.price };
-          }),
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setOrderConfirmation(data);
-        toast.success(`Food Order ${data.order_id} placed successfully!`);
-      }
-    } catch {
-      setOrderConfirmation({
-        order_id: "ORD-0089",
-        status: "Out for Delivery 🚀",
-        estimated_minutes: 20,
-        message: "Food order confirmed & sent to kitchen!"
-      });
-      toast.success("Food order placed successfully!");
-    } finally {
-      setOrdering(false);
-    }
-  };
-
   return (
-    <section id="food-demo" className="relative py-24">
+    <section id="education" className="relative py-24">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
-          eyebrow="Interactive Project #2"
-          title="FeastFlow Food Order & Delivery System"
-          sub="Interactive food ordering catalog, cart manager, and Python REST order processing backend."
+          eyebrow="Academic Background"
+          title="Education & Credentials"
+          sub="Strong technical foundations in Computer Science Engineering."
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-          {/* Food Menu Items */}
-          <div className="space-y-4">
-            <h3 className="font-display text-lg font-semibold flex items-center gap-2">
-              <ShoppingBag className="h-5 w-5 text-amber-400" /> Select Menu Items to Order:
-            </h3>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {sampleMenu.map((item) => (
-                <div key={item.id} className="gradient-border overflow-hidden p-4 flex flex-col justify-between">
-                  <div className="gradient-border-mask" />
-                  <div>
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
-                      <img src={item.img} alt={item.name} className="h-full w-full object-cover" />
-                      <div className="absolute top-2 right-2 rounded-full glass px-2.5 py-0.5 text-[11px] font-bold text-amber-300 flex items-center gap-1">
-                        <Star className="h-3 w-3 fill-amber-300" /> {item.rating}
-                      </div>
+        <div className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
+          {educationList.map((edu, idx) => (
+            <Reveal key={edu.degree} delay={idx * 0.1}>
+              <div className="gradient-border h-full p-6 flex flex-col justify-between">
+                <div className="gradient-border-mask" />
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="grid h-10 w-10 place-items-center rounded-xl glass">
+                      <edu.icon className="h-5 w-5 text-secondary" />
                     </div>
-                    <h4 className="mt-3 font-semibold text-sm">{item.name}</h4>
-                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{item.desc}</p>
+                    <span className="font-mono text-xs rounded-full glass px-3 py-1 text-muted-foreground">
+                      {edu.period}
+                    </span>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3">
-                    <span className="font-mono text-sm font-bold text-secondary">₹{item.price}</span>
-                    <div className="flex items-center gap-2">
-                      {cart[item.id] ? (
-                        <div className="flex items-center gap-2 rounded-lg glass px-2 py-1">
-                          <button onClick={() => removeFromCart(item.id)} className="text-muted-foreground hover:text-foreground">
-                            <Minus className="h-3.5 w-3.5" />
-                          </button>
-                          <span className="font-mono text-xs font-bold text-secondary">{cart[item.id]}</span>
-                          <button onClick={() => addToCart(item.id)} className="text-muted-foreground hover:text-foreground">
-                            <Plus className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => addToCart(item.id)}
-                          className="rounded-lg px-3 py-1.5 font-mono text-xs font-semibold text-primary-foreground"
-                          style={{ background: "var(--gradient-primary)" }}
-                        >
-                          + Add to Cart
-                        </button>
-                      )}
-                    </div>
-                  </div>
+                  <h3 className="font-display text-lg font-bold">{edu.degree}</h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{edu.institution}</p>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Checkout & Cart Summary */}
-          <div className="gradient-border p-6 h-fit">
-            <div className="gradient-border-mask" />
-            <h3 className="font-display text-lg font-semibold border-b border-border/60 pb-3 flex items-center gap-2">
-              <ShoppingBag className="h-5 w-5 text-secondary" /> Cart Order Checkout
-            </h3>
-
-            <div className="mt-4 space-y-3">
-              {Object.entries(cart).map(([idStr, qty]) => {
-                const item = sampleMenu.find((m) => m.id === Number(idStr));
-                if (!item) return null;
-                return (
-                  <div key={item.id} className="flex items-center justify-between text-xs font-mono">
-                    <span className="truncate text-muted-foreground">{qty}x {item.name}</span>
-                    <span className="font-semibold text-secondary">₹{item.price * qty}</span>
-                  </div>
-                );
-              })}
-
-              <div className="mt-4 border-t border-border/60 pt-3 flex items-center justify-between font-mono font-bold text-sm">
-                <span>Total Amount:</span>
-                <span className="text-gradient text-lg">₹{calculateTotal()}</span>
-              </div>
-            </div>
-
-            <div className="mt-6 space-y-3">
-              <div>
-                <label className="mb-1 block text-xs text-muted-foreground">Delivery Customer Name</label>
-                <Input value={customerName} onChange={(e) => setCustomerName(e.target.value)} className="bg-muted/40 text-xs" />
-              </div>
-              <div>
-                <label className="mb-1 block text-xs text-muted-foreground">Delivery Address</label>
-                <Input value={address} onChange={(e) => setAddress(e.target.value)} className="bg-muted/40 text-xs" />
-              </div>
-
-              <Button
-                onClick={placeFoodOrder}
-                disabled={ordering || calculateTotal() === 0}
-                className="mt-4 h-11 w-full text-primary-foreground font-semibold"
-                style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow-purple)" }}
-              >
-                {ordering ? "Dispatching Order via Python REST API..." : "Place Order & Dispatch 🚀"}
-              </Button>
-            </div>
-
-            {orderConfirmation && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="mt-4 rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-xs font-mono text-emerald-300"
-              >
-                <div className="flex items-center gap-2 font-bold text-sm text-emerald-400">
-                  <CheckCircle2 className="h-4 w-4" /> Order {orderConfirmation.order_id} Confirmed!
+                <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">Grade / Score</span>
+                  <span className="font-mono text-sm font-bold text-gradient">{edu.score}</span>
                 </div>
-                <p className="mt-2 text-muted-foreground">{orderConfirmation.message}</p>
-                <div className="mt-2 text-[11px] text-emerald-200">
-                  Status: <strong>{orderConfirmation.status}</strong> (ETA ~{orderConfirmation.estimated_minutes} mins)
-                </div>
-              </motion.div>
-            )}
-          </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -1120,23 +860,22 @@ function FoodDeliveryDemo() {
 /* ---------------- CONTACT ---------------- */
 function Contact() {
   const [sending, setSending] = useState(false);
-  const [savedDbId, setSavedDbId] = useState<number | null>(null);
 
   const cards = [
     { icon: Mail, label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
-    { icon: Phone, label: "Phone", value: "+91 7672047896", href: "tel:+917672047896" },
-    { icon: MapPin, label: "Location", value: "Bengaluru, Karnataka, India" },
-    { icon: Linkedin, label: "LinkedIn", value: "ramesh-k", href: "https://www.linkedin.com/in/ramesh-k-71243026a/" },
+    { icon: Phone, label: "Phone", value: CONTACT_PHONE, href: `tel:${CONTACT_PHONE.replace(/\s+/g, '')}` },
+    { icon: MapPin, label: "Location", value: "Bengaluru / Bellary, Karnataka, India" },
+    { icon: Linkedin, label: "LinkedIn", value: "ramesh-k-71243026", href: "https://www.linkedin.com/in/ramesh-k-71243026/" },
     { icon: Github, label: "GitHub", value: "Ramesh2200", href: "https://github.com/Ramesh2200" },
   ];
 
   return (
-    <section id="contact" className="relative py-24">
+    <section id="contact" className="relative py-24 bg-card/10 border-t border-border/50">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
-          eyebrow="Contact & Hire"
-          title="Let's Build Software Together"
-          sub="Have an ATS, Food Order, or Full-Stack project opportunity? Send a message."
+          eyebrow="Contact & Connect"
+          title="Let's Build Impactful Software"
+          sub="Available for Java Full-Stack, Spring Boot, React.js, and Software Engineering opportunities."
         />
         <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
           <Reveal>
@@ -1155,7 +894,7 @@ function Contact() {
                   </div>
                 );
                 return c.href ? (
-                  <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+                  <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel={c.href.startsWith("http") ? "noreferrer" : undefined}>
                     {Inner}
                   </a>
                 ) : (
@@ -1178,25 +917,6 @@ function Contact() {
                 setSending(true);
 
                 try {
-                  try {
-                    const pyRes = await fetch(`${PYTHON_API_BASE}/contact`, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        sender_name: fromName,
-                        sender_email: replyTo,
-                        subject: subject,
-                        message: message,
-                      }),
-                    });
-                    if (pyRes.ok) {
-                      const data = await pyRes.json();
-                      if (data.db_id) setSavedDbId(data.db_id);
-                    }
-                  } catch (err) {
-                    console.warn(err);
-                  }
-
                   const emailjs = (await import("@emailjs/browser")).default;
                   await emailjs.send(
                     EMAILJS_SERVICE_ID,
@@ -1218,10 +938,10 @@ function Contact() {
                     { publicKey: EMAILJS_PUBLIC_KEY }
                   );
 
-                  toast.success("Message sent successfully!");
+                  toast.success("Message sent successfully! Ramesh will get back to you soon.");
                   form.reset();
                 } catch (err) {
-                  toast.error("Failed to send message. Please try again.");
+                  toast.error("Failed to send message via form. Please email directly at ballariramesh0825@gmail.com");
                 } finally {
                   setSending(false);
                 }
@@ -1230,33 +950,26 @@ function Contact() {
             >
               <div className="gradient-border-mask" />
               <div className="mb-4 flex items-center justify-between border-b border-border/60 pb-3">
-                <span className="font-display text-base font-semibold">Send a Message</span>
+                <span className="font-display text-base font-semibold">Send a Direct Message</span>
               </div>
-
-              {savedDbId && (
-                <div className="mb-4 flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-300">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
-                  <span>Logged in Python Database (Message #{savedDbId})</span>
-                </div>
-              )}
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1 block text-xs text-muted-foreground">Your Name</label>
-                  <Input name="from_name" required placeholder="Alex" className="bg-muted/40" />
+                  <Input name="from_name" required placeholder="Recruiter / Collaborator" className="bg-muted/40" />
                 </div>
                 <div>
                   <label className="mb-1 block text-xs text-muted-foreground">Your Email</label>
-                  <Input name="reply_to" required type="email" placeholder="alex@example.com" className="bg-muted/40" />
+                  <Input name="reply_to" required type="email" placeholder="recruiter@company.com" className="bg-muted/40" />
                 </div>
               </div>
               <div className="mt-4">
                 <label className="mb-1 block text-xs text-muted-foreground">Subject</label>
-                <Input name="subject" required placeholder="ATS / Food App Opportunity" className="bg-muted/40" />
+                <Input name="subject" required placeholder="Full-Stack Engineer Opportunity" className="bg-muted/40" />
               </div>
               <div className="mt-4">
                 <label className="mb-1 block text-xs text-muted-foreground">Message</label>
-                <Textarea name="message" required rows={4} placeholder="Hi Ramesh..." className="bg-muted/40" />
+                <Textarea name="message" required rows={4} placeholder="Hi Ramesh, we are impressed by your Smart Parking System and Java background..." className="bg-muted/40" />
               </div>
 
               <Button
@@ -1289,11 +1002,11 @@ function Footer() {
             </div>
             <div className="flex flex-col">
               <span className="text-gradient font-display text-lg font-extrabold tracking-tight">Ramesh.K</span>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Full Stack Dev</span>
+              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Java Full Stack Dev</span>
             </div>
           </a>
           <p className="mt-3 max-w-sm text-xs text-muted-foreground leading-relaxed">
-            Full Stack Developer specializing in HTML, CSS, JavaScript, React, Python, Java, Spring Boot, JDBC, Hibernate, and DSA Algorithms.
+            Computer Science Engineering graduate specializing in Java, Spring Boot, React.js, REST APIs, JDBC, Hibernate, and MySQL.
           </p>
         </div>
         <div>
@@ -1309,15 +1022,31 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="mb-3 font-mono text-xs uppercase tracking-widest text-secondary">Connect</h4>
+          <h4 className="mb-3 font-mono text-xs uppercase tracking-widest text-secondary">Connect & Links</h4>
           <Socials />
-          <p className="mt-4 text-xs text-muted-foreground">
-            Featured Projects: 1. ATS Resume Scorer | 2. Food Order & Delivery App
-          </p>
+          <div className="mt-4 flex flex-col gap-1 text-xs text-muted-foreground">
+            <a
+              href="https://smart-parking-system-murex.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-emerald-400 hover:underline flex items-center gap-1"
+            >
+              <Zap className="h-3 w-3" /> Smart Parking Platform (Live)
+            </a>
+            <a
+              href={resumeUrl}
+              download="Ramesh_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground flex items-center gap-1"
+            >
+              <Download className="h-3 w-3" /> Download Resume PDF
+            </a>
+          </div>
         </div>
       </div>
       <div className="mx-auto mt-8 max-w-6xl px-6 text-center text-xs text-muted-foreground border-t border-border/40 pt-6">
-        © {new Date().getFullYear()} Ramesh K. Built with React, HTML5/CSS3, Python & Java.
+        © {new Date().getFullYear()} Ramesh K. All rights reserved. Built with React.js, Tailwind CSS & Java Full-Stack Architecture.
       </div>
     </footer>
   );
