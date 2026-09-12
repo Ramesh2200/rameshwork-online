@@ -36,6 +36,31 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
 const resumeUrl = "/Ramesh_Resume.pdf";
+const handleResumeDownload = async (e: React.MouseEvent) => {
+  e.preventDefault();
+  try {
+    const res = await fetch(resumeUrl);
+    if (!res.ok) throw new Error("Resume fetch failed");
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Ramesh_Resume.pdf";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 1500);
+  } catch {
+    const a = document.createElement("a");
+    a.href = resumeUrl;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.download = "Ramesh_Resume.pdf";
+    a.click();
+  }
+};
 const CONTACT_EMAIL = "ballariramesh0825@gmail.com";
 const CONTACT_PHONE = "+91 7672047816";
 const EMAILJS_SERVICE_ID = "service_q9xlcre";
@@ -348,9 +373,10 @@ function Hero() {
               whileTap={{ scale: 0.95 }}
               href={resumeUrl}
               download="Ramesh_Resume.pdf"
+              onClick={handleResumeDownload}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-semibold transition hover:border-secondary"
+              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-semibold transition hover:border-secondary cursor-pointer"
             >
               <Download className="h-4 w-4 text-emerald-400" /> Download Resume
             </motion.a>
@@ -1036,9 +1062,10 @@ function Footer() {
             <a
               href={resumeUrl}
               download="Ramesh_Resume.pdf"
+              onClick={handleResumeDownload}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground flex items-center gap-1"
+              className="hover:text-foreground flex items-center gap-1 cursor-pointer"
             >
               <Download className="h-3 w-3" /> Download Resume PDF
             </a>
