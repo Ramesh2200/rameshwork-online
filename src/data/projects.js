@@ -60,7 +60,7 @@ export const projects = [
       "CRUD Operations"
     ],
     entities: ["Users", "Products", "Categories", "Carts", "Orders", "Order Items"],
-    liveUrl: "https://ecommerce-app-1508.vercel.app",
+    liveUrl: "https://ecommerce-gmail-auth.vercel.app",
     videoFile: "https://youtu.be/iNZVWkgSFf4?si=rof21b1wAWyszKaR",
     youtubeEmbedUrl: "https://www.youtube.com/embed/iNZVWkgSFf4?rel=0",
     youtubeUrl: "https://youtu.be/iNZVWkgSFf4?si=rof21b1wAWyszKaR",

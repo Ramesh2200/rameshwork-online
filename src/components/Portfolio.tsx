@@ -664,7 +664,7 @@ function Projects() {
         "Enhanced the shopping experience through product search, filtering, responsive interfaces, and admin management, and successfully deployed the application on Vercel.",
       ],
       tech: ["HTML5", "CSS3", "JavaScript", "React.js", "Spring Boot", "Hibernate", "JDBC", "MySQL", "REST APIs"],
-      demoUrl: "https://github.com/Ramesh2200",
+      demoUrl: "https://ecommerce-gmail-auth.vercel.app",
       repoUrl: "https://github.com/Ramesh2200",
     },
   ];
