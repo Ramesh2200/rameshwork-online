@@ -61,6 +61,7 @@ export const projects = [
     ],
     entities: ["Users", "Products", "Categories", "Carts", "Orders", "Order Items"],
     liveUrl: "https://ecommerce-gmail-auth.vercel.app",
+    githubUrl: "https://github.com/Ramesh2200/ecommerce-app",
     videoFile: "https://youtu.be/iNZVWkgSFf4?si=rof21b1wAWyszKaR",
     youtubeEmbedUrl: "https://www.youtube.com/embed/iNZVWkgSFf4?rel=0",
     youtubeUrl: "https://youtu.be/iNZVWkgSFf4?si=rof21b1wAWyszKaR",

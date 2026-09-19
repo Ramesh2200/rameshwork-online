@@ -67,7 +67,7 @@ export function App() {
         
         {/* Atmospheric Dynamic Background Video Layer */}
         <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
-          {/* Main Background Video */}
+          {/* Main Background Video - Set to 95% opacity per user prompt */}
           <video
             ref={videoRef}
             autoPlay
@@ -76,8 +76,8 @@ export function App() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
             style={{
-              opacity: 0.72,
-              filter: "brightness(0.85) contrast(1.08)"
+              opacity: 0.95,
+              filter: "brightness(0.76) contrast(1.12) saturate(1.15)"
             }}
           >
             <source src="/videos/ramesh-video.mp4" type="video/mp4" />
@@ -89,12 +89,12 @@ export function App() {
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 pointer-events-none -z-10"
             style={{
               backgroundImage: "url('/assets/colorful-tech-bg.jpg')",
-              opacity: 0.35
+              opacity: 0.25
             }}
           ></div>
 
-          {/* Deep Cinematic Contrast Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/70 via-[#050505]/45 to-[#050505]/80 pointer-events-none" />
+          {/* Deep Cinematic Contrast Vignette with subtle backdrop blur for crisp front text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/75 via-[#050505]/40 to-[#050505]/80 pointer-events-none backdrop-blur-[0.5px]" />
 
           {/* Multi-Color Neon Glowing Ambient Orbs */}
           <div className="orb-cyan absolute top-10 -left-20 w-[40rem] h-[40rem] rounded-full bg-gradient-to-tr from-cyan-500/20 via-sky-500/15 to-transparent blur-[150px]"></div>
